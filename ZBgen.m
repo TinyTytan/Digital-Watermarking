@@ -22,33 +22,43 @@ aspectRatio = [size(img,2),size(img,1),size(img,3)];
 
 imgY = squeeze(img(:,:,1)); % extract luma part of image (greyscale)
 
-% decompose Y part of image using dwt
+% % decompose Y part of image using dwt
 [LL,HL,LH,HH] = dwt2(imgY,'haar');
 [LL2,HL2,LH2,HH2] = dwt2(LL,'haar');
 [LL3,HL3,LH3,HH3] = dwt2(LL2,'haar');
 
-load('watermarkZB.mat');
+% load watermark and produce keys
+load('watermark.mat');
+
 HLkey = keyGen(HL2,watermark);
 LHkey = keyGen(LH2,watermark);
 HHkey = keyGen(HH2,watermark);
 
-% recompose image using idwt
+% % recompose image using idwt
 rLL2 = idwt2(LL3,HL3,LH3,HH3,'haar');
 rLL = idwt2(rLL2,HL2,LH2,HH2,'haar');
-imgYRe = idwt2(rLL,HL,LH,HH,'haar');
+imgReY = idwt2(rLL,HL,LH,HH,'haar');
 
-imgRe = cat(3,imgYRe,img(:,:,2:3)); % reinsert Cb & Cr from original image
+imgRe = cat(3,imgReY,img(:,:,2:3)); % reinsert Cb & Cr from original image
+imgReDb = ycbcr2rgb(imgRe); % convert reconstituted YCbCr image to RGB
+imgReO = im2uint8(imgReDb); % convert reconstituted RGB double image to uint8
 
-imgReRGB = ycbcr2rgb(imgRe); % convert reconstituted image back to RGB
+% % measurements/validation
 
-% measurements/validation
-ssim(rLL2,LL2)
-ssim(rLL,LL)
-ssim(imgYRe,imgY)
-ssim(imgRe,img)
+% compare reconstructed and original images- should all == 1
+disp(ssim(rLL2,LL2))        % compare LL2
+disp(ssim(rLL,LL))          % compare LL
+disp(ssim(imgReY,imgY))     % compare greyscale image
+disp(ssim(imgRe,img))       % compare YCbCr image
+disp(ssim(imgReDb,imgDb))   % compare RGB image
+disp(ssim(imgReO,imgO))     % compare uint8 image
 
-imgRGB = rot90(im2double(imread([path,filename])),-1);
-ssim(imgReRGB,imgRGB)
+disp(immse(rLL2,LL2))        % compare LL2
+disp(immse(rLL,LL))          % compare LL
+disp(immse(imgReY,imgY))     % compare greyscale image
+disp(immse(imgRe,img))       % compare YCbCr image
+disp(immse(imgReDb,imgDb))   % compare RGB image
+disp(immse(imgReO,imgO))     % compare uint8 image
 
 % % create tiled image with all orders
 % thirdOrderImg = imtile([LL3,HL3;LH3,HH3]);
@@ -60,26 +70,26 @@ thirdOrderImg = imtile([mat2gray(LL3),mat2gray(HL3);mat2gray(LH3),mat2gray(HH3)]
 secondOrderImg = imtile([thirdOrderImg,mat2gray(HL2);mat2gray(LH2),mat2gray(HH2)]);
 firstOrderImg = imtile([secondOrderImg,mat2gray(HL);mat2gray(LH),mat2gray(HH)]);
 
-% display first-order components in plot
-t = tiledlayout(2,2);
-colormap gray
-
-nexttile;
-imagesc(LL)
-title('Approximation (LL)')
-pbaspect(aspectRatio)
-
-nexttile;
-imagesc(HL)
-title('Horizontal (HL)')
-pbaspect(aspectRatio)
-
-nexttile;
-imagesc(LH)
-title('Vertical (LH)')
-pbaspect(aspectRatio)
-
-nexttile;
-imagesc(HH)
-title('Diagonal (HH)')
-pbaspect(aspectRatio)
+% % % display first-order components in plot
+% t = tiledlayout(2,2);
+% colormap gray
+% 
+% nexttile;
+% imagesc(LL)
+% title('Approximation (LL)')
+% pbaspect(aspectRatio)
+% 
+% nexttile;
+% imagesc(HL)
+% title('Horizontal (HL)')
+% pbaspect(aspectRatio)
+% 
+% nexttile;
+% imagesc(LH)
+% title('Vertical (LH)')
+% pbaspect(aspectRatio)
+% 
+% nexttile;
+% imagesc(HH)
+% title('Diagonal (HH)')
+% pbaspect(aspectRatio)
