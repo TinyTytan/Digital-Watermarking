@@ -5,21 +5,20 @@
 clear;
 
 % % Load image
-
-% if exist('img','var') == 0
 [filename,path] = uigetfile('*.jpg');
-img = rgb2ycbcr(im2double(imread([path,filename]))); % load image as YCbCr
+imgO = imread([path,filename]);
 
 if strcmp(filename,'sun.jpg') || strcmp(filename,'birds.jpg')
-   img = rot90(img,-1); % otherwise images will be landscape
+   imgO = rot90(imgO,-1); % otherwise images will be landscape
 end
 
-% end
+imgDb = im2double(imgO); % convert to double
+img = rgb2ycbcr(imgDb);  % convert to YCbCr
 
 aspectRatio = [size(img,2),size(img,1),size(img,3)];
 
-image(img)
-pbaspect(aspectRatio)
+% image(img)
+% pbaspect(aspectRatio)
 
 imgY = squeeze(img(:,:,1)); % extract luma part of image (greyscale)
 
