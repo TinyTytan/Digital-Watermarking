@@ -28,11 +28,11 @@ imgY = squeeze(img(:,:,1)); % extract luma part of image (greyscale)
 [LL3,HL3,LH3,HH3] = dwt2(LL2,'haar');
 
 % load watermark and produce keys
-load('watermark.mat');
+load('watermarkZB.mat');
 
-HLkey = keyGen(HL2,watermark);
-LHkey = keyGen(LH2,watermark);
-HHkey = keyGen(HH2,watermark);
+HLkey = keyGen(HL2,watermarkZB);
+LHkey = keyGen(LH2,watermarkZB);
+HHkey = keyGen(HH2,watermarkZB);
 
 % % recompose image using idwt
 rLL2 = idwt2(LL3,HL3,LH3,HH3,'haar');
