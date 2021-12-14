@@ -47,19 +47,19 @@ imgReO = im2uint8(imgReDb); % convert reconstituted RGB double image to uint8
 % % measurements/validation
 
 % compare reconstructed and original images- should all == 1
-disp(ssim(rLL2,LL2))        % compare LL2
-disp(ssim(rLL,LL))          % compare LL
-disp(ssim(imgReY,imgY))     % compare greyscale image
-disp(ssim(imgRe,img))       % compare YCbCr image
-disp(ssim(imgReDb,imgDb))   % compare RGB image
-disp(ssim(imgReO,imgO))     % compare uint8 image
+disp(['ssim(rLL2,LL2) == ',num2str(ssim(rLL2,LL2))])            % compare LL2
+disp(['ssim(rLL,LL) == ',num2str(ssim(rLL,LL))])                % compare LL
+disp(['ssim(imgReY,imgY) == ',num2str(ssim(imgReY,imgY))])      % compare greyscale image
+disp(['ssim(imgRe,img) == ',num2str(ssim(imgRe,img))])          % compare YCbCr image
+disp(['ssim(imgReDb,imgDb) == ',num2str(ssim(imgReDb,imgDb))])  % compare RGB image
+disp(['ssim(imgReO,imgO) == ',num2str(ssim(imgReO,imgO))])      % compare uint8 image
 
-disp(immse(rLL2,LL2))        % compare LL2
-disp(immse(rLL,LL))          % compare LL
-disp(immse(imgReY,imgY))     % compare greyscale image
-disp(immse(imgRe,img))       % compare YCbCr image
-disp(immse(imgReDb,imgDb))   % compare RGB image
-disp(immse(imgReO,imgO))     % compare uint8 image
+disp(['immse(rLL2,LL2) == ',num2str(immse(rLL2,LL2))])            % compare LL2
+disp(['immse(rLL,LL) == ',num2str(immse(rLL,LL))])                % compare LL
+disp(['immse(imgReY,imgY) == ',num2str(immse(imgReY,imgY))])      % compare greyscale image
+disp(['immse(imgRe,img) == ',num2str(immse(imgRe,img))])          % compare YCbCr image
+disp(['immse(imgReDb,imgDb) == ',num2str(immse(imgReDb,imgDb))])  % compare RGB image
+disp(['immse(imgReO,imgO) == ',num2str(immse(imgReO,imgO))])      % compare uint8 image
 
 % % create tiled image with all orders
 % thirdOrderImg = imtile([LL3,HL3;LH3,HH3]);
