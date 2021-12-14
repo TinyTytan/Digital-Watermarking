@@ -3,6 +3,7 @@
 % University of Sheffield 2021
 
 clear;
+waveletType = 'haar';
 
 % % Load image
 [filename,path] = uigetfile('*.jpg');
@@ -23,9 +24,9 @@ aspectRatio = [size(img,2),size(img,1),size(img,3)];
 imgY = squeeze(img(:,:,1)); % extract luma part of image (greyscale)
 
 % % decompose Y part of image using dwt
-[LL,HL,LH,HH] = dwt2(imgY,'haar');
-[LL2,HL2,LH2,HH2] = dwt2(LL,'haar');
-[LL3,HL3,LH3,HH3] = dwt2(LL2,'haar');
+[LL,HL,LH,HH] = dwt2(imgY,waveletType);
+[LL2,HL2,LH2,HH2] = dwt2(LL,waveletType);
+[LL3,HL3,LH3,HH3] = dwt2(LL2,waveletType);
 
 % load watermark and produce keys
 load('watermarkZB.mat');
@@ -35,9 +36,9 @@ LHkey = keyGen(LH2,watermarkZB);
 HHkey = keyGen(HH2,watermarkZB);
 
 % % recompose image using idwt
-rLL2 = idwt2(LL3,HL3,LH3,HH3,'haar');
-rLL = idwt2(rLL2,HL2,LH2,HH2,'haar');
-imgReY = idwt2(rLL,HL,LH,HH,'haar');
+rLL2 = idwt2(LL3,HL3,LH3,HH3,waveletType);
+rLL = idwt2(rLL2,HL2,LH2,HH2,waveletType);
+imgReY = idwt2(rLL,HL,LH,HH,waveletType);
 
 imgRe = cat(3,imgReY,img(:,:,2:3)); % reinsert Cb & Cr from original image
 imgReDb = ycbcr2rgb(imgRe); % convert reconstituted YCbCr image to RGB
