@@ -6,8 +6,17 @@ function out = dataHide(matrix,watermark)
             for workingColumn = 1:size(matrix,2)/3
                 columnLoc = 3*workingColumn-2;
                 activeSection = matrix(workingRow,columnLoc:columnLoc+2);
-                [~, index] = min(abs(activeSection-median(activeSection)));
-                if watermark(workingRow,workingColumn) == 1
+                norm = abs(activeSection-median(activeSection));
+                [~, index] = min(norm);
+
+                if norm == 0
+                    if watermark(workingRow,workingColumn) == 1
+                        matrix(workingRow,columnLoc) = activeSection(1)-abs(activeSection(1)*0.1);
+                    elseif watermark(workingRow,workingColumn) == 0
+                        matrix(workingRow,columnLoc) = activeSection(1)+abs(activeSection(1)*0.1);
+                    end
+
+                elseif watermark(workingRow,workingColumn) == 1
                     matrix(workingRow,columnLoc+index-1) = max(activeSection);
                 elseif watermark(workingRow,workingColumn) == 0
                     matrix(workingRow,columnLoc+index-1) = min(activeSection);
