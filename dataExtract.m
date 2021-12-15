@@ -9,10 +9,6 @@ function watermarkEx = dataExtract(matrix)
                 watermarkEx(workingRow,workingColumn) = 1;
             elseif activeSection(index) > mode(activeSection)
                 watermarkEx(workingRow,workingColumn) = 0; 
-            else
-                disp("Uh-oh");
             end
-%             disp(newline)
         end
-%      watermarkEx = logical(watermarkEx);
     end
