@@ -11,9 +11,9 @@ function out = dataHide(matrix,watermark)
 
                 if norm == 0
                     if watermark(workingRow,workingColumn) == 1
-                        matrix(workingRow,columnLoc) = activeSection(1)-abs(activeSection(1)*0.1);
+                        matrix(workingRow,columnLoc) = activeSection(1)-1e18-abs(activeSection(1)*0.1);
                     elseif watermark(workingRow,workingColumn) == 0
-                        matrix(workingRow,columnLoc) = activeSection(1)+abs(activeSection(1)*0.1);
+                        matrix(workingRow,columnLoc) = activeSection(1)+1e18+abs(activeSection(1)*0.1);
                     end
 
                 elseif watermark(workingRow,workingColumn) == 1
