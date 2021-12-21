@@ -38,17 +38,19 @@ if strcmp(watermarkingType,'dataHiding')
     % measurements/validation
     
     % compare reconstructed and original images- ssim should = 1 and immse = 0
-    disp(['ssim(rLL,LL)         == ',num2str(ssim(rLL,LL))])         % compare LL
-    disp(['ssim(imgReY,imgY)    == ',num2str(ssim(imgReY,imgY))])    % compare greyscale image
-    disp(['ssim(imgRe,img)      == ',num2str(ssim(imgRe,img))])      % compare YCbCr image
-    disp(['ssim(imgReDb,imgDb)  == ',num2str(ssim(imgReDb,imgDb))])  % compare RGB image
-    disp(['ssim(imgReO,imgO)    == ',num2str(ssim(imgReO,imgO))])    % compare uint8 image
-    disp(newline) 
-    disp(['immse(rLL,LL)        == ',num2str(immse(rLL,LL))])        % compare LL
-    disp(['immse(imgReY,imgY)   == ',num2str(immse(imgReY,imgY))])   % compare greyscale image
-    disp(['immse(imgRe,img)     == ',num2str(immse(imgRe,img))])     % compare YCbCr image
-    disp(['immse(imgReDb,imgDb) == ',num2str(immse(imgReDb,imgDb))]) % compare RGB image
-    % cannot compare uint8 files with immse
+    if strcmp(questdlg("Show SSIM & IMMSE?"),"Yes")
+        disp(['ssim(rLL,LL)         == ',num2str(ssim(rLL,LL))])         % compare LL
+        disp(['ssim(imgReY,imgY)    == ',num2str(ssim(imgReY,imgY))])    % compare greyscale image
+        disp(['ssim(imgRe,img)      == ',num2str(ssim(imgRe,img))])      % compare YCbCr image
+        disp(['ssim(imgReDb,imgDb)  == ',num2str(ssim(imgReDb,imgDb))])  % compare RGB image
+        disp(['ssim(imgReO,imgO)    == ',num2str(ssim(imgReO,imgO))])    % compare uint8 image
+        disp(newline) 
+        disp(['immse(rLL,LL)        == ',num2str(immse(rLL,LL))])        % compare LL
+        disp(['immse(imgReY,imgY)   == ',num2str(immse(imgReY,imgY))])   % compare greyscale image
+        disp(['immse(imgRe,img)     == ',num2str(immse(imgRe,img))])     % compare YCbCr image
+        disp(['immse(imgReDb,imgDb) == ',num2str(immse(imgReDb,imgDb))]) % compare RGB image
+        % cannot compare uint8 files with immse
+    end
 
 elseif strcmp(watermarkingType,'zeroBit')
     load('watermarkZB.mat');
