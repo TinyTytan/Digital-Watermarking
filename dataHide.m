@@ -4,7 +4,7 @@ function out = dataHide(matrix,watermark)
     else
         f = waitbar(0,"Inserting Watermark");
         for workingRow = 1:size(matrix,1) % add redundancy
-            waitbar((workingRow/size(matrix,1)));
+            waitbar(workingRow/size(matrix,1));
             for workingColumn = 1:size(matrix,2)/3
                 columnLoc = 3*workingColumn-2;
                 activeSection = matrix(workingRow,columnLoc:columnLoc+2);
