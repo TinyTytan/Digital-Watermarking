@@ -12,10 +12,6 @@ watermarkingType = 'dataHiding';
 [filename,path] = uigetfile('*.jpg');
 imgO = imread([path,filename]);
 
-% if strcmp(filename,'sun.jpg') || strcmp(filename,'birds.jpg')
-%    imgO = rot90(imgO,-1); % otherwise images will be landscape
-% end
-
 imgDb = im2double(imgO); % convert to double
 img = rgb2ycbcr(imgDb);  % convert to YCbCr
 imgY = squeeze(img(:,:,1)); % extract luma part of image (greyscale)
