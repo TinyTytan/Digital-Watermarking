@@ -13,16 +13,12 @@ function out = dataHide(matrix,watermark)
                 oddOneOut = abs(activeSection-median(activeSection));
                 [~, index] = min(oddOneOut);
 
-                if max(oddOneOut)-min(oddOneOut) < mean(activeSection)*0.01
-                    disp(["all values similar, activeSection ==",num2str(activeSection,3)])
+                if max(oddOneOut)-min(oddOneOut) <= abs(mean(activeSection))*0.01
                     if watermark(workingRow,workingColumn) == 1
                         matrix(workingRow,columnLoc+1) = activeSection(index)-1e-18-abs(activeSection(1)*0.1);
-                        disp(["1 embedded, activeSection ==",num2str(matrix(workingRow,columnLoc:columnLoc+2),3)])
                     elseif watermark(workingRow,workingColumn) == 0
                         matrix(workingRow,columnLoc+1) = activeSection(index)+1e-18+abs(activeSection(1)*0.1);
-                        disp(["0 embedded, activeSection ==",num2str(matrix(workingRow,columnLoc:columnLoc+2),3)])
                     end
-
                 elseif watermark(workingRow,workingColumn) == 1
                     matrix(workingRow,columnLoc+index-1) = max(activeSection);
                 elseif watermark(workingRow,workingColumn) == 0
