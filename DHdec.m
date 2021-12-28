@@ -35,13 +35,8 @@ HH2ex = double(dataExtract(HH2));
 % % measurements/validation
 
 load('watermark.mat');
-watermark = double(watermark);
 % compare extracted and original watermark- ssim should = 1 and immse = 0
 
-disp(['ssim(HL2ex,watermark)    == ',num2str(ssim(HL2ex,watermark))])   % compare HL2
-disp(['ssim(LH2ex,watermark)    == ',num2str(ssim(LH2ex,watermark))])   % compare LH2
-disp(['ssim(HH2ex,watermark)    == ',num2str(ssim(HH2ex,watermark))])   % compare HH2
-disp(newline) 
-disp(['immse(HL2ex,watermark)   == ',num2str(immse(HL2ex,watermark))])  % compare HL2
-disp(['immse(LH2ex,watermark)   == ',num2str(immse(LH2ex,watermark))])  % compare LH2
-disp(['immse(HH2ex,watermark)   == ',num2str(immse(HH2ex,watermark))])  % compare HH2
+disp(['HL2ex Correctness == ',num2str(hammingf(HL2ex,watermark))])   % compare HL2
+disp(['LH2ex Correctness == ',num2str(hammingf(LH2ex,watermark))])   % compare LH2
+disp(['HH2ex Correctness == ',num2str(hammingf(HH2ex,watermark))])   % compare HH2
