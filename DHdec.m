@@ -26,11 +26,10 @@ imgY = squeeze(img(:,:,1)); % extract luma part
 [LL2,HL2,LH2,HH2] = dwt2(LL,waveletType);
 
 % extract watermark from watermarked matrices
-% conv to double for ssim/immse analysis
 
-HL2ex = double(dataExtract(HL2));
-LH2ex = double(dataExtract(LH2));
-HH2ex = double(dataExtract(HH2));
+HL2ex = dataExtract(HL2);
+LH2ex = dataExtract(LH2);
+HH2ex = dataExtract(HH2);
 
 % % measurements/validation
 
