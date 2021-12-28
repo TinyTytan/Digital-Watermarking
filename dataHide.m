@@ -1,6 +1,8 @@
 function out = dataHide(matrix,watermark)
     if size(matrix,1) ~= size(watermark,1) || size(matrix,2)/3 ~= size(watermark,2)
         disp("Error- watermark incorrect size, or matrix dimensions not divisible by 3");
+        out = NaN;
+        return
     else
         f = waitbar(0,"Inserting Watermark");
         for workingRow = 1:size(matrix,1) % add redundancy
