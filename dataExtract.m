@@ -35,7 +35,7 @@ function watermarkEx = dataExtract(matrix)
                 else
                     numsucc = numsucc + 1;
                 end
-            else                                    % if all values are the same, extract 0 and flag error
+            else % if all values are the same, extract 0 and flag error
                 watermarkEx(workingRow,workingColumn) = 0;
                 tfailex = tfailex + 1;
             end
@@ -49,4 +49,5 @@ function watermarkEx = dataExtract(matrix)
     disp(["times failed to extract 0:  " + num2str(failex_0) + "    (" + num2str(100*(failex_0/numel(watermarkEx)),3) + "%)"])
     disp(["times extraction failed:    " + num2str(tfailex) + "     (" + num2str(100*(tfailex/numel(watermarkEx)),3) + "%)"])
     disp(["times extraction succeeded: " + num2str(numsucc) + "     (" + num2str(100*(numsucc/numel(watermarkEx)),3) + "%)"])
+    disp(newline)
 end
