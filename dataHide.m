@@ -1,6 +1,17 @@
 function out = dataHide(matrix,watermark)
-    if size(matrix,1) ~= size(watermark,1) || size(matrix,2)/3 ~= size(watermark,2)
-        disp("Error- watermark incorrect size, or matrix dimensions not divisible by 3");
+mRows = size(matrix,1);
+mCols = size(matrix,2);
+wRows = size(watermark,1);
+wCols = size(watermark,2);
+
+    if mRows ~= wRows
+        disp("Error- watermark has incorrect number of rows");
+        disp(["Has: " + wRows + ", needs: " + mRows])
+        out = NaN;
+        return
+    elseif mCols/3 ~= wCols
+        disp("Error- watermark has incorrect number of columns");
+        disp(["Has: " + wCols + ", needs: " + mCols/3])
         out = NaN;
         return
     else
