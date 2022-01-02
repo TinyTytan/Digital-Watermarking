@@ -15,10 +15,16 @@ wCols = size(watermark,2);
         out = NaN;
         return
     else
+
         f = waitbar(0,"Inserting Watermark");
-        for workingRow = 1:size(matrix,1) % add redundancy
-            waitbar(workingRow/size(matrix,1));
-            for workingColumn = 1:size(matrix,2)/3
+        
+        startingRow = floor((mRows-wRows)/2)+1;
+        startingCol = floor((mCols-wCols*3)/2)+1;
+
+        for workingRow = startingRow:mRows
+            waitbar(workingRow/mRows);
+            for workingColumn = startingCol:mCols/3
+
                 columnLoc = 3*workingColumn-2;
                 activeSection = matrix(workingRow,columnLoc:columnLoc+2);
                 oddOneOut = abs(activeSection-median(activeSection));
