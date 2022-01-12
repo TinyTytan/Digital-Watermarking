@@ -57,6 +57,7 @@ elseif strcmp(watermarkingType,'zeroBit')
     HLkey = keyGen(HL2,watermarkZB);
     LHkey = keyGen(LH2,watermarkZB);
     HHkey = keyGen(HH2,watermarkZB);
+    key = cat(3,HHkey,HLkey,LHkey);
 
     % no need to recompose image as it has not been modified
     % no need to compare recomposed and original images either
