@@ -12,12 +12,13 @@ watermarkingType = 'dataHiding';
 [filename,path] = uigetfile('*.jpg');
 imgO = imread([path,filename]);
 
+% Conv to double and extract Y part
 imgDb = im2double(imgO); % convert to double
 img = rgb2ycbcr(imgDb);  % convert to YCbCr
-imgY = squeeze(img(:,:,1)); % extract luma part
+imgY = squeeze(img(:,:,1)); % extract luma part of image (greyscale)
 
 % % decompose Y part of watermarked image using dwt
-[LL,HL,LH,HH]     = dwt2(imgY,waveletType);
+[LL,HL,LH,HH] = dwt2(imgY,waveletType);
 [LL2,HL2,LH2,HH2] = dwt2(LL,waveletType);
 
 % % extract watermark
@@ -37,7 +38,7 @@ elseif strcmp(watermarkingType,'zeroBit')
     HH2ex = keyComp(HH2,key(:,:,1)); waitbar(1/3);
     HL2ex = keyComp(HL2,key(:,:,2)); waitbar(2/3);
     LH2ex = keyComp(LH2,key(:,:,3)); close(f)
-    
+
     load('watermarkZB.mat'); % for comparison later
 
 else
