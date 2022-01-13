@@ -28,7 +28,7 @@ watermarkEx = mode(cat(3,HL2ex,LH2ex,HH2ex),3);
 % % measurements/validation
 % compare extracted and original watermark- 1 is ideal
 
-load('watermark.mat');
+load('watermarkDH.mat');
 disp(['HL2ex Correctness == ',num2str(hammingf(HL2ex,watermark))])   % compare HL2
 disp(['LH2ex Correctness == ',num2str(hammingf(LH2ex,watermark))])   % compare LH2
 disp(['HH2ex Correctness == ',num2str(hammingf(HH2ex,watermark))])   % compare HH2

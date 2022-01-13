@@ -8,7 +8,7 @@ function watermarkEx = dataExtract(matrix)
     tfailex = 0;    % failed to extract anything
     numsucc = 0;    % extracted correct value
 
-    load('watermark.mat');
+    load('watermarkDH.mat');
 
     for workingRow = 1:size(matrix,1)
         waitbar(workingRow/size(matrix,1)); % update waitbar, progress = current row/total rows
