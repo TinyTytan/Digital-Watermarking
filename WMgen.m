@@ -22,7 +22,7 @@ imgY = squeeze(img(:,:,1)); % extract luma part of image (greyscale)
 
 % % load watermark and execute relevant watermarking function
 if strcmp(watermarkingType,'dataHiding')
-    load('watermark.mat');
+    load('watermarkDH.mat');
     HL2dh = dataHide(HL2,watermark);
     LH2dh = dataHide(LH2,watermark);
     HH2dh = dataHide(HH2,watermark);
@@ -54,9 +54,9 @@ if strcmp(watermarkingType,'dataHiding')
 
 elseif strcmp(watermarkingType,'zeroBit')
     load('watermarkZB.mat');
-    HLkey = keyGen(HL2,watermarkZB);
-    LHkey = keyGen(LH2,watermarkZB);
-    HHkey = keyGen(HH2,watermarkZB);
+    HLkey = keyGen(HL2,watermark);
+    LHkey = keyGen(LH2,watermark);
+    HHkey = keyGen(HH2,watermark);
     key = cat(3,HHkey,HLkey,LHkey);
     save('key.mat','key');
 
