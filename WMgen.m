@@ -40,9 +40,12 @@ if strcmp(watermarkingType,'dataHiding')
 
 elseif strcmp(watermarkingType,'zeroBit')
     load('watermarkZB.mat');
-    HLkey = keyGen(HL2,watermark);
-    LHkey = keyGen(LH2,watermark);
-    HHkey = keyGen(HH2,watermark);
+    f = waitbar(0,"Inserting Watermarks");
+
+    HLkey = keyGen(HL2,watermark); waitbar(1/3);
+    LHkey = keyGen(LH2,watermark); waitbar(2/3);
+    HHkey = keyGen(HH2,watermark); close(f)
+    
     key = cat(3,HHkey,HLkey,LHkey);
     save('key.mat','key');
 
