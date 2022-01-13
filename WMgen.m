@@ -13,8 +13,7 @@ watermarkingType = 'dataHiding';
 imgO = imread([path,filename]);
 
 % Conv to double and extract Y part
-imgDb = im2double(imgO); % convert to double
-img = rgb2ycbcr(imgDb);  % convert to YCbCr
+img = rgb2ycbcr(im2double(imgO));  % convert to double then YCbCr
 imgY = squeeze(img(:,:,1)); % extract luma part of image (greyscale)
 
 % % decompose Y part of image using dwt
