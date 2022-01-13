@@ -31,4 +31,4 @@ load('watermarkZB.mat');
 disp(['HH2ex Correctness == ',num2str(hammingf(HH2ex,watermarkZB))])   % compare HH2
 disp(['HL2ex Correctness == ',num2str(hammingf(HL2ex,watermarkZB))])   % compare HL2
 disp(['LH2ex Correctness == ',num2str(hammingf(LH2ex,watermarkZB))])   % compare LH2
-
+disp(['Extracted Watermark Correctness == ',num2str(hammingf(watermarkEx,watermarkZB))])   % compare extracted watermark
