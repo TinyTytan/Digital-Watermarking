@@ -2,7 +2,7 @@
 % By Theo Rickman
 % University of Sheffield 2021
 
-% clear;
+clear;
 waveletType = 'haar';
 
 % Load watermarked image
@@ -18,6 +18,7 @@ imgY = squeeze(img(:,:,1)); % extract luma part
 [LL2,HL2,LH2,HH2] = dwt2(LL,waveletType);
 
 % extract watermark from watermarked matrices
+load('key.mat');
 HH2ex = keyComp(HH2,key(:,:,1));
 HL2ex = keyComp(HL2,key(:,:,2));
 LH2ex = keyComp(LH2,key(:,:,3));
