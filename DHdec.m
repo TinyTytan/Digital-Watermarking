@@ -23,6 +23,7 @@ imgY = squeeze(img(:,:,1)); % extract luma part
 HL2ex = dataExtract(HL2);
 LH2ex = dataExtract(LH2);
 HH2ex = dataExtract(HH2);
+watermarkEx = mode(cat(3,HL2ex,LH2ex,HH2ex),3);
 
 % % measurements/validation
 % compare extracted and original watermark- 1 is ideal
