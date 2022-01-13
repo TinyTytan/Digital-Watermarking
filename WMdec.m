@@ -26,9 +26,8 @@ if strcmp(watermarkingType,'dataHiding')
 
     HL2ex = dataExtract(HL2); waitbar(1/3);
     LH2ex = dataExtract(LH2); waitbar(2/3);
-    HH2ex = dataExtract(HH2);
+    HH2ex = dataExtract(HH2); close(f)
 
-    close(f)
     load('watermarkDH.mat'); % for comparison later
 
 elseif strcmp(watermarkingType,'zeroBit')
@@ -37,9 +36,8 @@ elseif strcmp(watermarkingType,'zeroBit')
 
     HH2ex = keyComp(HH2,key(:,:,1)); waitbar(1/3);
     HL2ex = keyComp(HL2,key(:,:,2)); waitbar(2/3);
-    LH2ex = keyComp(LH2,key(:,:,3));
+    LH2ex = keyComp(LH2,key(:,:,3)); close(f)
     
-    close(f)
     load('watermarkZB.mat'); % for comparison later
 
 else
