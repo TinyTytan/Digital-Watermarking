@@ -1,8 +1,6 @@
 function watermarkEx = dataExtract(matrix)
     watermarkEx = NaN(size(matrix,1),size(matrix,2)/3);
 
-    f = waitbar(0,"Extracting Watermark"); % create progress bar
-
     failex_0 = 0;   % failed to extract 0
     failex_1 = 0;   % failed to extract 1
     tfailex = 0;    % failed to extract anything
@@ -11,8 +9,6 @@ function watermarkEx = dataExtract(matrix)
     load('watermarkDH.mat');
 
     for workingRow = 1:size(matrix,1)
-        waitbar(workingRow/size(matrix,1)); % update waitbar, progress = current row/total rows
-
         for workingColumn = 1:size(matrix,2)/3 % for each set of 3 columns
 
             columnLoc = 3*workingColumn-2; % first element in each set of 3
@@ -41,8 +37,6 @@ function watermarkEx = dataExtract(matrix)
             end
         end
     end
-
-    close(f) % close progress bar
 
     % display success rate
     disp(["times failed to extract 1:  " + num2str(failex_1) + "    (" + num2str(100*(failex_1/numel(watermarkEx)),3) + "%)"])

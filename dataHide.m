@@ -16,13 +16,10 @@ wCols = size(watermark,2);
         return
     else
 
-        f = waitbar(0,"Inserting Watermark");
-        
         startingRow = floor((mRows-wRows)/2)+1;
         startingCol = floor((mCols-wCols*3)/2)+1;
 
         for workingRow = startingRow:mRows
-            waitbar(workingRow/mRows);
             for workingColumn = startingCol:mCols/3
 
                 columnLoc = 3*workingColumn-2;
@@ -47,5 +44,4 @@ wCols = size(watermark,2);
         end
         out = matrix;
     end
-    close(f)
 end

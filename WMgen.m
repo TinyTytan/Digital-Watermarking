@@ -23,10 +23,14 @@ imgY = squeeze(img(:,:,1)); % extract luma part of image (greyscale)
 % % load watermark and execute relevant watermarking function
 if strcmp(watermarkingType,'dataHiding')
     load('watermarkDH.mat');
-    HL2dh = dataHide(HL2,watermark);
-    LH2dh = dataHide(LH2,watermark);
+    f = waitbar(0,"Inserting Watermarks");
+
+    HL2dh = dataHide(HL2,watermark); waitbar(1/3);
+    LH2dh = dataHide(LH2,watermark); waitbar(2/3);
     HH2dh = dataHide(HH2,watermark);
     
+    close(f)
+
     % recompose image using idwt
     rLL = idwt2(LL2,HL2dh,LH2dh,HH2dh,waveletType);
     imgReY = idwt2(rLL,HL,LH,HH,waveletType);
