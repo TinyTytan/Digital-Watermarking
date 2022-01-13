@@ -21,6 +21,7 @@ imgY = squeeze(img(:,:,1)); % extract luma part
 HH2ex = keyComp(HH2,key(:,:,1));
 HL2ex = keyComp(HL2,key(:,:,2));
 LH2ex = keyComp(LH2,key(:,:,3));
+watermarkEx = mode(cat(3,HL2ex,LH2ex,HH2ex),3);
 
 % % measurements/validation
 % compare extracted and original watermark- 1 is ideal
@@ -29,3 +30,4 @@ load('watermarkZB.mat');
 disp(['HH2ex Correctness == ',num2str(hammingf(HH2ex,watermarkZB))])   % compare HH2
 disp(['HL2ex Correctness == ',num2str(hammingf(HL2ex,watermarkZB))])   % compare HL2
 disp(['LH2ex Correctness == ',num2str(hammingf(LH2ex,watermarkZB))])   % compare LH2
+
