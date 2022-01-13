@@ -34,8 +34,7 @@ if strcmp(watermarkingType,'dataHiding')
     imgReY = idwt2(rLL,HL,LH,HH,waveletType);
 
     imgRe = cat(3,imgReY,img(:,:,2:3)); % reinsert Cb & Cr from original image
-    imgReDb = ycbcr2rgb(imgRe); % convert reconstituted YCbCr image to RGB
-    imgReO = im2uint8(imgReDb); % convert reconstituted RGB double image to uint8
+    imgReO = im2uint8(ycbcr2rgb(imgRe)); % convert reconstituted YCbCr image to RGB, then to uint8
 
 elseif strcmp(watermarkingType,'zeroBit')
     load('watermarkZB.mat');
