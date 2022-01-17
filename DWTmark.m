@@ -15,10 +15,10 @@ img = imread([path,filename]);
 
 % Conv to double and extract Y part
 img = rgb2ycbcr(im2double(img));  % convert to double then YCbCr
-img = squeeze(img(:,:,1)); % extract luma part of image (greyscale)
+imgY = squeeze(img(:,:,1)); % extract luma part of image (greyscale)
 
 % % decompose Y part of image using dwt
-[LL,HL,LH,HH] = dwt2(img,waveletType);
+[LL,HL,LH,HH] = dwt2(imgY,waveletType);
 [LL2,HL2,LH2,HH2] = dwt2(LL,waveletType);
 
 if strcmp(operation,'Embed')
