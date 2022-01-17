@@ -10,8 +10,9 @@ watermarkingType = questdlg("Zero-Bit or Data-Hiding?","Watermarking Type","Zero
 operation = questdlg("Embed or extract watermark?","Operation","Embed","Extract","Embed");
 
 % % Load image
-[filename,path] = uigetfile('*.jpg');
-img = imread([path,filename]);
+[filename,path] = uigetfile('*.jpg'); %#ok<ASGLU> 
+[path,filename,ext] = fileparts([path,filename]);
+img = imread(strcat(path,"\",filename,ext));
 
 % Conv to double and extract Y part
 img = rgb2ycbcr(im2double(img));  % convert to double then YCbCr
@@ -37,6 +38,7 @@ if strcmp(operation,'Embed')
     
         imgRe = cat(3,imgReY,img(:,:,2:3)); % reinsert Cb & Cr from original image
         imgReO = im2uint8(ycbcr2rgb(imgRe)); % convert reconstituted YCbCr image to RGB, then to uint8
+        imwrite(imgReO,strcat(filename,"_DH",ext),"Quality",100);
     
     elseif strcmp(watermarkingType,'Zero-Bit')
         load('watermarkZB.mat');
