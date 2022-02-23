@@ -10,7 +10,7 @@ watermarkingType = questdlg("Zero-Bit or Data-Hiding?","Watermarking Type","Zero
 operation = questdlg("Embed or extract watermark?","Operation","Embed","Extract","Embed");
 
 % % Load image
-[filename,path] = uigetfile('*.jpg'); %#ok<ASGLU> 
+[filename,path] = uigetfile('*.jpg');
 [path,filename,ext] = fileparts([path,filename]);
 img = imread(strcat(path,"\",filename,ext));
 
@@ -85,8 +85,8 @@ elseif strcmp(operation,'Extract')
     % % measurements/validation
     % compare extracted and original watermark- 1 is ideal
     
-    disp(['HH2ex Correctness == ',num2str(hammingf(HH2ex,watermark))])   % compare HH2
-    disp(['HL2ex Correctness == ',num2str(hammingf(HL2ex,watermark))])   % compare HL2
-    disp(['LH2ex Correctness == ',num2str(hammingf(LH2ex,watermark))])   % compare LH2
-    disp(['Extracted Watermark Correctness == ',num2str(hammingf(watermarkEx,watermark))])   % compare extracted watermark
+    disp(['HH2ex Bit Error Ratio == ',num2str(BER(HH2ex,watermark))])   % compare HH2
+    disp(['HL2ex Bit Error Ratio == ',num2str(BER(HL2ex,watermark))])   % compare HL2
+    disp(['LH2ex Bit Error Ratio == ',num2str(BER(LH2ex,watermark))])   % compare LH2
+    disp(['Extracted Watermark Bit Error Ratio == ',num2str(BER(watermarkEx,watermark))])   % compare extracted watermark
 end
