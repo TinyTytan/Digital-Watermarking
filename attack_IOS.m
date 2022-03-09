@@ -1,4 +1,4 @@
-function img_out = attack_IOS(img_in)
+function attack_IOS(img_in,filepath)
 %ATTACK_IOS Emulates iOS screenshot attack
 %   Resize image, then JPG compress it
 
@@ -19,6 +19,6 @@ else % the image is bound by width
     res(1) = res(2)*1/image_asp; % set image height
 end
 
-img_out = imresize(img_in,res);
+imwrite(imresize(img_in,res),filepath);
 
 end
