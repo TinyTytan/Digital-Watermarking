@@ -14,9 +14,9 @@ image_asp = image_res(2)/image_res(1);
 
 if image_asp < phone_asp % if the image's aspect ratio  is less than the phone's
     % then the image is bound by height
-    res(2) = size(img_in,2)*res(1)/size(img_in,1); % set image width
+    res(2) = res(1)*image_asp; % set image width
 else % the image is bound by width
-    res(1) = size(img_in,1)*res(2)/size(img_in,2); % set image height
+    res(1) = res(2)*1/image_asp; % set image height
 end
 
 img_out = imresize(img_in,res);
