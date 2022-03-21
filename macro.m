@@ -21,5 +21,6 @@ attack_IOS(new_path,filename,ext);                      % generate _i
 attack_IOS(new_path,strcat(filename,"i"),'.png');       % generate _ii
 attack_IOS(new_path,strcat(filename,"ii"),'.png');      % generate _iii
 
-
-
+attack_JPEG(new_path,filename,ext);                     % generate _p
+attack_JPEG(new_path,strcat(filename,"p"),ext);         % generate _pp
+attack_JPEG(new_path,strcat(filename,"pp"),ext);        % generate _ppp
