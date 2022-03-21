@@ -1,5 +1,5 @@
-function attack_Android(img_in,filepath)
-%attack_Android Emulates Android screenshot attack
+function attack_Android(path,filename,ext)
+%ATTACK_ANDROID Emulates Android screenshot attack
 %   Resize image, then JPG compress it
 
     % dimensions for resizing
@@ -7,6 +7,8 @@ function attack_Android(img_in,filepath)
 res = [1080 2400]; % 9:20 FHD+
 % res = [1080 1920]; % 9:16 FHD
 % res = [720 1280]; % 9:16 HD
+
+img_in = imread(strcat(path,"\",filename,ext));
 
 phone_asp = res(2)/res(1);
 
@@ -20,6 +22,6 @@ else % the image is bound by width
     res(1) = res(2)*1/image_asp; % set image height
 end
 
-imwrite(imresize(img_in,res),strcat(filepath,".jpg"),"Quality",100);
+imwrite(imresize(img_in,res),strcat(path,"\",filename,"a.jpg"),"Quality",100);
 
 end
