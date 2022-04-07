@@ -1,13 +1,6 @@
 function watermarkEx = dataExtract(matrix)
     watermarkEx = NaN(size(matrix,1),size(matrix,2)/3);
 
-    failex_0 = 0;   % failed to extract 0
-    failex_1 = 0;   % failed to extract 1
-    tfailex = 0;    % failed to extract anything
-    numsucc = 0;    % extracted correct value
-
-    load('watermarkDH.mat');
-
     for workingRow = 1:size(matrix,1)
         for workingColumn = 1:size(matrix,2)/3 % for each set of 3 columns
 
@@ -37,11 +30,4 @@ function watermarkEx = dataExtract(matrix)
             end
         end
     end
-
-    % display success rate
-    disp(["times failed to extract 1:  " + num2str(failex_1) + "    (" + num2str(100*(failex_1/numel(watermarkEx)),3) + "%)"])
-    disp(["times failed to extract 0:  " + num2str(failex_0) + "    (" + num2str(100*(failex_0/numel(watermarkEx)),3) + "%)"])
-    disp(["times extraction failed:    " + num2str(tfailex) + "     (" + num2str(100*(tfailex/numel(watermarkEx)),3) + "%)"])
-    disp(["times extraction succeeded: " + num2str(numsucc) + "     (" + num2str(100*(numsucc/numel(watermarkEx)),3) + "%)"])
-    disp(newline)
 end
