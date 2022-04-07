@@ -1,47 +1,47 @@
 function out = dataHide(matrix,watermark)
-mRows = size(matrix,1);
-mCols = size(matrix,2);
-wRows = size(watermark,1);
-wCols = size(watermark,2);
+cRows = size(matrix,1);
+cCols = size(matrix,2)/3;
 
-    if mRows ~= wRows
-        disp("Error- watermark has incorrect number of rows");
-        disp(["Has: " + wRows + ", needs: " + mRows])
-        out = NaN;
-        return
-    elseif mCols/3 ~= wCols
-        disp("Error- watermark has incorrect number of columns");
-        disp(["Has: " + wCols + ", needs: " + mCols/3])
-        out = NaN;
-        return
-    else
+constrSqare = min(cRows,cCols);
+watermark = imresize(watermark,[constrSqare constrSqare]);
 
-        startingRow = floor((mRows-wRows)/2)+1;
-        startingCol = floor((mCols-wCols*3)/2)+1;
+if cRows < cCols % if matrix is wide
+    watermark = repmat(watermark, 1, 30);
+    watermark = imcrop(watermark, [0 0 cCols constrSqare]);
 
-        for workingRow = startingRow:mRows
-            for workingColumn = startingCol:mCols/3
+elseif cCols < cRows % if matrix is tall
+    watermark = repmat(watermark, 30, 1);
+    watermark = imcrop(watermark, [0 0 constrSqare cRows]);
 
-                columnLoc = 3*workingColumn-2;
-                activeSection = matrix(workingRow,columnLoc:columnLoc+2);
-                oddOneOut = abs(activeSection-median(activeSection));
-                [~, index] = min(oddOneOut);
+end
 
-                if max(oddOneOut)-min(oddOneOut) <= abs(mean(activeSection))*0.01
-                    if watermark(workingRow,workingColumn) == 1
-                        matrix(workingRow,columnLoc+1) = activeSection(index)-1e-18-abs(activeSection(1)*0.1);
-                    elseif watermark(workingRow,workingColumn) == 0
-                        matrix(workingRow,columnLoc+1) = activeSection(index)+1e-18+abs(activeSection(1)*0.1);
-                    end
-                elseif watermark(workingRow,workingColumn) == 1
-                    matrix(workingRow,columnLoc+index-1) = max(activeSection);
-                elseif watermark(workingRow,workingColumn) == 0
-                    matrix(workingRow,columnLoc+index-1) = min(activeSection);
-                else
-                    disp("Uh-oh");
-                end
+startingRow = floor((cRows-constrSqare)/2)+1;
+startingCol = floor((cCols-constrSqare*3)/2)+1;
+
+for workingRow = 1:cRows
+
+    for workingColumn = 1:cCols
+
+        columnLoc = 3*workingColumn-2;
+        activeSection = matrix(workingRow,columnLoc:columnLoc+2);
+        oddOneOut = abs(activeSection-median(activeSection));
+        [~, index] = min(oddOneOut);
+
+        if max(oddOneOut)-min(oddOneOut) <= abs(mean(activeSection))*0.01
+            if watermark(workingRow,workingColumn) == 1
+                matrix(workingRow,columnLoc+1) = activeSection(index)-1e-18-abs(activeSection(1)*0.1);
+            elseif watermark(workingRow,workingColumn) == 0
+                matrix(workingRow,columnLoc+1) = activeSection(index)+1e-18+abs(activeSection(1)*0.1);
             end
+        elseif watermark(workingRow,workingColumn) == 1
+            matrix(workingRow,columnLoc+index-1) = max(activeSection);
+        elseif watermark(workingRow,workingColumn) == 0
+            matrix(workingRow,columnLoc+index-1) = min(activeSection);
+        else
+            disp("Uh-oh");
         end
-        out = matrix;
     end
+end
+out = matrix;
+
 end
