@@ -8,6 +8,8 @@ function [watermark_or_key_out] = DWTmark_fnc(img_in, ...
                                               operation, ...
                                               waveletType)
 
+watermark_or_key_out = 0;
+
     % Conv to double and extract Y part
     img = rgb2ycbcr(im2double(img_in));  % convert to double then YCbCr
     imgY = squeeze(img(:,:,1)); % extract luma part of image (greyscale)
@@ -31,7 +33,7 @@ function [watermark_or_key_out] = DWTmark_fnc(img_in, ...
         
             imgRe = cat(3,imgReY,img(:,:,2:3)); % reinsert Cb & Cr from original image
             imgReO = im2uint8(ycbcr2rgb(imgRe)); % convert reconstituted YCbCr image to RGB, then to uint8
-            imwrite(imgReO,strcat(filename,"_DH",ext),"Quality",100);
+            imwrite(imgReO,strcat("output","_DH",".jpg"),"Quality",100);
         
         elseif strcmp(watermarkingType,'Zero-Bit')
             f = waitbar(0,"Inserting Watermarks");
