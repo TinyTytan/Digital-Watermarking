@@ -15,8 +15,7 @@ elseif cCols < cRows % if matrix is tall
 
 end
 
-startingRow = floor((cRows-constrSqare)/2)+1;
-startingCol = floor((cCols-constrSqare*3)/2)+1;
+save('DHlastusedwatermark.mat','watermark');
 
 for workingRow = 1:cRows
 
