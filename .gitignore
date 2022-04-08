@@ -2,3 +2,4 @@
 *.asv
 ui.mlapp
 key.mat
+attacked_images/*
