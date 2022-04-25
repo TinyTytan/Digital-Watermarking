@@ -20,7 +20,7 @@ img_in = imread(strcat(path,'\',filename,ext));
 
 % to emulate facebook, resize image if width > 2048 [Pippin 2016 Table 4.5]
 if size(img_in,2) > 2048
-    imresize(img_in,[round(2048*size(img_in,1)/size(img_in,2)) 2048]);
+    img_in = imresize(img_in,[round(2048*size(img_in,1)/size(img_in,2)) 2048]);
 end
 
 imwrite(img_in,strcat(path,'\',filename,".jpg"),"Quality", qFactor);
