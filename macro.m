@@ -2,20 +2,21 @@
 workingDir = 'C:\Users\Theo\MATLAB\Projects\EEE381\attacked_images';
 
 % Prompt user for file to attack and divide up the filename
-[filename,origin_path] = uigetfile('*.jpg;*.jpeg;*.png');
-[origin_path,filename,ext] = fileparts([origin_path,filename]);
+[original_filename,original_path] = uigetfile('*.jpg;*.jpeg;*.png');
+[original_path,original_filename,ext] = fileparts([original_path,original_filename]);
 
 % Create new folder in working directory for this image
-new_path = strcat(workingDir,'\',filename);
+new_path = strcat(workingDir,'\',original_filename); 
+warning('off', 'MATLAB:MKDIR:DirectoryExists');
 mkdir(new_path);
 
 % Copy image to be attacked to the new folder, append "_"
-copyfile(strcat(origin_path,'\',filename,ext),strcat(new_path,'\',filename,'_',ext));
-filename = strcat(filename,'_');
+copyfile(strcat(original_path,'\',original_filename,ext),strcat(new_path,'\',original_filename,'_',ext));
+filename = strcat(original_filename,'_');
 
     numAttacks = 25; 
     numAttacksComplete = 0;
-    f = waitbar(0,strcat("Attacking ",filename,ext));
+    f = waitbar(0,strcat("Attacking ",original_filename,ext)); f.Children.Title.Interpreter = 'none';
 
 attack_Android(new_path,filename,ext);                      % generate _a
 attack_Android(new_path,strcat(filename,"a"),ext);          % generate _aa
