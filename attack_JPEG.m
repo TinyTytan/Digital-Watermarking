@@ -23,6 +23,6 @@ if size(img_in,2) > 2048
     img_in = imresize(img_in,[round(2048*size(img_in,1)/size(img_in,2)) 2048]);
 end
 
-imwrite(img_in,strcat(path,'\',filename,".jpg"),"Quality", qFactor);
+imwrite(img_in,strcat(path,'\',filename,"p.jpg"),"Quality", qFactor);
 
 end
