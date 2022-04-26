@@ -23,9 +23,9 @@ watermark_or_key_out = 0;
         if strcmp(watermarkingType,'Data-Hiding')
             f = waitbar(0,"Inserting Watermarks");
         
-            HL2dh = dataHide(HL2,watermark_or_key_in); waitbar(1/3);
-            LH2dh = dataHide(LH2,watermark_or_key_in); waitbar(2/3);
-            HH2dh = dataHide(HH2,watermark_or_key_in); close(f)
+            HH2dh = dataHide(HH2,watermark_or_key_in); waitbar(1/3);
+            HL2dh = dataHide(HL2,watermark_or_key_in); waitbar(2/3);
+            LH2dh = dataHide(LH2,watermark_or_key_in); close(f)
             
             % recompose image using idwt
             rLL = idwt2(LL2,HL2dh,LH2dh,HH2dh,waveletType);
@@ -38,22 +38,25 @@ watermark_or_key_out = 0;
         elseif strcmp(watermarkingType,'Zero-Bit')
             f = waitbar(0,"Inserting Watermarks");
         
-            HLkey = keyGen(HL2,watermark_or_key_in); waitbar(1/3);
-            LHkey = keyGen(LH2,watermark_or_key_in); waitbar(2/3);
-            HHkey = keyGen(HH2,watermark_or_key_in); close(f)
+            HHkey = keyGen(HH2,watermark_or_key_in); waitbar(1/3);
+            HLkey = keyGen(HL2,watermark_or_key_in); waitbar(2/3);
+            LHkey = keyGen(LH2,watermark_or_key_in); close(f)
             
             watermark_or_key_out = cat(3,HHkey,HLkey,LHkey);
         
             % no need to recompose image as it has not been modified
         end
     elseif strcmp(operation,'Extract')
+        load("watermark.mat");
         % % extract watermark
         if strcmp(watermarkingType,'Data-Hiding')
             f = waitbar(0,"Extracting Watermark");
         
-            HL2ex = dataExtract(HL2); waitbar(1/3);
-            LH2ex = dataExtract(LH2); waitbar(2/3);
-            HH2ex = dataExtract(HH2); close(f)
+            HH2ex = dataExtract(HH2); waitbar(1/3);
+            HL2ex = dataExtract(HL2); waitbar(2/3);
+            LH2ex = dataExtract(LH2); close(f)
+
+            wmcomp = wm_sizer(size(HL2,1),size(HL2,2),watermark,'dh');
         
         elseif strcmp(watermarkingType,'Zero-Bit')
             f = waitbar(0,"Extracting Watermark");
@@ -61,6 +64,8 @@ watermark_or_key_out = 0;
             HH2ex = keyComp(HH2,watermark_or_key_in(:,:,1)); waitbar(1/3);
             HL2ex = keyComp(HL2,watermark_or_key_in(:,:,2)); waitbar(2/3);
             LH2ex = keyComp(LH2,watermark_or_key_in(:,:,3)); close(f)
+
+            wmcomp = wm_sizer(size(HL2,1),size(HL2,2),watermark,'zb');
 
         else
             disp("Invalid watermarking type selected")
@@ -73,9 +78,9 @@ watermark_or_key_out = 0;
         % % measurements/validation
         % compare extracted and original watermark- 1 is ideal
         
-        disp(['HH2ex Bit Error Ratio == ',num2str(BER(HH2ex,watermark_or_key_in))])   % compare HH2
-        disp(['HL2ex Bit Error Ratio == ',num2str(BER(HL2ex,watermark_or_key_in))])   % compare HL2
-        disp(['LH2ex Bit Error Ratio == ',num2str(BER(LH2ex,watermark_or_key_in))])   % compare LH2
-        disp(['Extracted Watermark Bit Error Ratio == ',num2str(BER(watermark_or_key_out,watermark_or_key_in))])   % compare extracted watermark
+        disp(['HH2ex Bit Error Ratio == ',num2str(BER(HH2ex,wmcomp))])   % compare HH2
+        disp(['HL2ex Bit Error Ratio == ',num2str(BER(HL2ex,wmcomp))])   % compare HL2
+        disp(['LH2ex Bit Error Ratio == ',num2str(BER(LH2ex,wmcomp))])   % compare LH2
+        disp(['Extracted Watermark Bit Error Ratio == ',num2str(BER(watermark_or_key_out,wmcomp))])   % compare extracted watermark
     end
 end
