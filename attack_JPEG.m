@@ -1,4 +1,4 @@
-function attack_JPEG(path,filename,ext)
+function out = attack_JPEG(path,filename,ext)
 %ATTACK_JPEG Simple JPEG compression
 %   JPG compress image
 
@@ -24,5 +24,7 @@ if size(img_in,2) > 2048
 end
 
 imwrite(img_in,strcat(path,'\',filename,"p.jpg"),"Quality", qFactor);
+
+out = imread(strcat(path,'\',filename,"p.jpg"));
 
 end

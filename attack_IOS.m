@@ -1,4 +1,4 @@
-function attack_IOS(path,filename,ext)
+function out = attack_IOS(path,filename,ext)
 %ATTACK_IOS Emulates iOS screenshot attack
 %   Resize image, then PNG compress it
 
@@ -22,5 +22,7 @@ else % the image is bound by width
 end
 
 imwrite(imresize(img_in,res),strcat(path,"\",filename,"i.png"));
+
+out = imread(strcat(path,"\",filename,"i.png"));
 
 end
